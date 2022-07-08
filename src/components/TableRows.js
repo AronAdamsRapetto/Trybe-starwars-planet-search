@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function TableRows({ planet }) {
-  console.log(planet);
   // const {
   //   name,
   //   rotation_period: rotationPeriod,

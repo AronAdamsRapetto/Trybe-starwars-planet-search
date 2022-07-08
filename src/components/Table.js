@@ -3,7 +3,7 @@ import planetsContext from '../context/planetsContext';
 import TableRows from './TableRows';
 
 function Table() {
-  const { data, loadingPlanets } = useContext(planetsContext);
+  const { data, loadingPlanets, filterByName: { name } } = useContext(planetsContext);
 
   return (
     <section>
@@ -21,9 +21,10 @@ function Table() {
             </thead>
             <tbody>
               {
-                data.map((planet) => (
-                  <TableRows key={ planet.name } planet={ planet } />
-                ))
+                data.filter(({ name: namePlanet }) => namePlanet.includes(name))
+                  .map((planet) => (
+                    <TableRows key={ planet.name } planet={ planet } />
+                  ))
               }
             </tbody>
           </table>
