@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import planetsContext from './planetsContext';
 
 function ProviderPlanetsContext({ children }) {
+  const [nameFilter, setNameFilter] = useState('');
   const [data, setData] = useState([]);
   const [loadingPlanets, setLoading] = useState(true);
 
@@ -22,6 +23,10 @@ function ProviderPlanetsContext({ children }) {
   const contextValue = {
     data,
     loadingPlanets,
+    setNameFilter,
+    filterByName: {
+      name: nameFilter,
+    },
   };
 
   return (
