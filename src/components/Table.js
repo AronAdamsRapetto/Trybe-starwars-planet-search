@@ -20,26 +20,36 @@ function Table() {
   }, [data, loadingPlanets]);
 
   useEffect(() => {
-    const filterPlanets = ({ column, comparison, value }) => {
+    const filterPlanets = ({ column, comparison, value }, planetList) => {
       switch (comparison) {
       case 'maior que':
-        return planets
+        return planetList
           .filter((planet) => parseInt(planet[column], 10) > parseInt(value, 10));
       case 'menor que':
-        return planets
+        return planetList
           .filter((planet) => parseInt(planet[column], 10) < parseInt(value, 10));
       case 'igual a':
         console.log(value);
-        return planets
+        return planetList
           .filter((planet) => parseInt(planet[column], 10) === parseInt(value, 10));
       default:
-        return planets;
+        return planetList;
       }
     };
     if (isFiltered) {
+      // const newPlanets = filterByNumericValues
+      //   .map((filter) => filterPlanets(filter));
       const newPlanets = filterByNumericValues
-        .map((filter) => filterPlanets(filter));
-      setFilteredPlanets(newPlanets[0]);
+        .reduce((accPlanets, currentFilter, index) => {
+          let newAcc = accPlanets;
+          if (index === 0) {
+            newAcc = [...planets];
+          }
+          newAcc = [...filterPlanets(currentFilter, newAcc)];
+          return newAcc;
+        }, []);
+      console.log(newPlanets);
+      setFilteredPlanets(newPlanets);
     }
   }, [filterByNumericValues, isFiltered, planets]);
 
