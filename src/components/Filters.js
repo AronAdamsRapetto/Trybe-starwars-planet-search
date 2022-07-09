@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import planetsContext from '../context/planetsContext';
 
 function Filters() {
@@ -7,8 +7,31 @@ function Filters() {
     comparison: 'maior que',
     value: 0,
   });
+  const [columnFilters, setColumnFilters] = useState([
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ]);
 
-  const { setNumericFilters, setIsFiltered } = useContext(planetsContext);
+  const {
+    setNumericFilters,
+    setIsFiltered,
+    filterByNumericValues,
+  } = useContext(planetsContext);
+
+  useEffect(() => {
+    const columnValues = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    if (filterByNumericValues.length > 0) {
+      const newColumnValues = columnValues
+        .filter((columnValue) => filterByNumericValues
+          .every(({ column }) => column !== columnValue));
+      setColumnFilters(newColumnValues);
+    }
+  }, [filterByNumericValues]);
 
   const handleChange = ({ target: { value, name } }) => {
     setFilter((oldState) => ({
@@ -33,11 +56,16 @@ function Filters() {
           onChange={ handleChange }
           value={ filter.column }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {
+            columnFilters.map((columnFilter) => (
+              <option
+                key={ columnFilter }
+                value={ columnFilter }
+              >
+                { columnFilter }
+              </option>
+            ))
+          }
         </select>
       </label>
       <label htmlFor="comparison-filter">
