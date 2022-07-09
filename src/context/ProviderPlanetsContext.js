@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import planetsContext from './planetsContext';
 
 function ProviderPlanetsContext({ children }) {
-  const [nameFilter, setNameFilter] = useState('');
   const [data, setData] = useState([]);
   const [loadingPlanets, setLoading] = useState(true);
+  const [nameFilter, setNameFilter] = useState('');
+  const [numericFilters, setNumericFilters] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -27,6 +29,10 @@ function ProviderPlanetsContext({ children }) {
     filterByName: {
       name: nameFilter,
     },
+    filterByNumericValues: numericFilters,
+    setNumericFilters,
+    setIsFiltered,
+    isFiltered,
   };
 
   return (

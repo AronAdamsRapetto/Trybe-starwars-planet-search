@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
 
-function Input() {
+function InputNameFilter() {
   const { filterByName: { name }, setNameFilter } = useContext(planetsContext);
   return (
     <input
@@ -15,4 +15,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default InputNameFilter;
