@@ -30,6 +30,10 @@ function Filters() {
         .filter((columnValue) => filterByNumericValues
           .every(({ column }) => column !== columnValue));
       setColumnFilters(newColumnValues);
+      setFilter((oldState) => ({
+        ...oldState,
+        column: newColumnValues[0],
+      }));
     }
   }, [filterByNumericValues]);
 
