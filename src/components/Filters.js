@@ -34,6 +34,12 @@ function Filters() {
         ...oldState,
         column: newColumnValues[0],
       }));
+    } else {
+      setColumnFilters(columnValues);
+      setFilter((oldState) => ({
+        ...oldState,
+        column: columnValues[0],
+      }));
     }
   }, [filterByNumericValues]);
 
