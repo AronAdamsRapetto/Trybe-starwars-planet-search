@@ -7,14 +7,13 @@ function Filters() {
     comparison: 'maior que',
     value: 0,
   });
-  const [columnFilters, setColumnFilters] = useState([
-    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
-  ]);
 
   const {
     setNumericFilters,
     setIsFiltered,
     filterByNumericValues,
+    columnFilters,
+    setColumnFilters,
   } = useContext(planetsContext);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function Filters() {
         column: columnValues[0],
       }));
     }
-  }, [filterByNumericValues]);
+  }, [filterByNumericValues, setColumnFilters]);
 
   const handleChange = ({ target: { value, name } }) => {
     setFilter((oldState) => ({

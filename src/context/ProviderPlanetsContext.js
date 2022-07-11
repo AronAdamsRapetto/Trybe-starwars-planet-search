@@ -8,6 +8,14 @@ function ProviderPlanetsContext({ children }) {
   const [nameFilter, setNameFilter] = useState('');
   const [numericFilters, setNumericFilters] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [columnFilters, setColumnFilters] = useState([
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
+  const [isOrdered, setIsOrdered] = useState(false);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -25,14 +33,20 @@ function ProviderPlanetsContext({ children }) {
   const contextValue = {
     data,
     loadingPlanets,
-    setNameFilter,
     filterByName: {
       name: nameFilter,
     },
+    setNameFilter,
     filterByNumericValues: numericFilters,
     setNumericFilters,
-    setIsFiltered,
     isFiltered,
+    setIsFiltered,
+    columnFilters,
+    setColumnFilters,
+    order,
+    setOrder,
+    isOrdered,
+    setIsOrdered,
   };
 
   return (

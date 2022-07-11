@@ -5,7 +5,12 @@ function TableRows({ planet }) {
   return (
     <tr>
       {
-        Object.values(planet).map((value) => (<td key={ value }>{ value }</td>))
+        Object.entries(planet).map(([key, value]) => {
+          if (key === 'name') {
+            return (<td data-testid="planet-name" key={ value }>{ value }</td>);
+          }
+          return (<td key={ value }>{ value }</td>);
+        })
       }
     </tr>
   );

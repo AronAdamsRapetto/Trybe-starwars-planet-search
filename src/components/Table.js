@@ -5,17 +5,28 @@ import TableRows from './TableRows';
 function Table() {
   const [planets, setPlanets] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+
   const {
     data,
     loadingPlanets,
     filterByName: { name },
     filterByNumericValues,
     isFiltered,
+    isOrdered,
+    order,
   } = useContext(planetsContext);
 
   useEffect(() => {
     if (!loadingPlanets) {
-      setPlanets(data);
+      const NEGATIVE_SORT = -1;
+      const POSITIVE_SORT = 1;
+      const newPlanets = [...data];
+      newPlanets.sort((a, b) => {
+        if (a.name < b.name) return NEGATIVE_SORT;
+        if (a.name > b.name) return POSITIVE_SORT;
+        return 0;
+      });
+      setPlanets(newPlanets);
     }
   }, [data, loadingPlanets]);
 
@@ -46,10 +57,27 @@ function Table() {
           newAcc = [...filterPlanets(currentFilter, newAcc)];
           return newAcc;
         }, []);
-      console.log(newPlanets);
       setFilteredPlanets(newPlanets);
     }
   }, [filterByNumericValues, isFiltered, planets]);
+
+  useEffect(() => {
+    const sortPlanets = (planetList) => {
+      const newPlanetList = [...planetList];
+      if (order.sort === 'ASC') {
+        return newPlanetList
+          .sort((a, b) => parseInt(a[order.column], 10) - parseInt(b[order.column], 10));
+      }
+      if (order.sort === 'DESC') {
+        return newPlanetList
+          .sort((a, b) => parseInt(b[order.column], 10) - parseInt(a[order.column], 10));
+      }
+    };
+    if (isOrdered) {
+      const sortedPlanets = sortPlanets(data);
+      setPlanets(sortedPlanets);
+    }
+  }, [data, isOrdered, order]);
 
   return (
     <section>
