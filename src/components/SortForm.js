@@ -17,19 +17,22 @@ function SortForm() {
 
   return (
     <section>
-      <h3>Ordem</h3>
-      <select
-        data-testid="column-sort"
-        name="column"
-        onChange={ handleChange }
-        value={ order.column }
-      >
-        {
-          columnFilters.map((filter) => (
-            <option key={ filter } value={ filter }>{ filter }</option>
-          ))
-        }
-      </select>
+      <label htmlFor="column-sort">
+        Ordem
+        <select
+          id="column-sort"
+          data-testid="column-sort"
+          name="column"
+          onChange={ handleChange }
+          value={ order.column }
+        >
+          {
+            columnFilters.map((filter) => (
+              <option key={ filter } value={ filter }>{ filter }</option>
+            ))
+          }
+        </select>
+      </label>
       <label htmlFor="asc-radio">
         Ascendente
         <input

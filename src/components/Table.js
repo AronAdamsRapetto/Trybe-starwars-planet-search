@@ -30,19 +30,17 @@ function Table() {
 
   useEffect(() => {
     const filterPlanets = ({ column, comparison, value }, planetList) => {
-      switch (comparison) {
-      case 'maior que':
+      if (comparison === 'maior que') {
         return planetList
           .filter((planet) => parseInt(planet[column], 10) > parseInt(value, 10));
-      case 'menor que':
+      }
+      if (comparison === 'menor que') {
         return planetList
           .filter((planet) => parseInt(planet[column], 10) < parseInt(value, 10));
-      case 'igual a':
-        console.log(value);
+      }
+      if (comparison === 'igual a') {
         return planetList
           .filter((planet) => parseInt(planet[column], 10) === parseInt(value, 10));
-      default:
-        return planetList;
       }
     };
     if (filterByNumericValues.length !== 0) {

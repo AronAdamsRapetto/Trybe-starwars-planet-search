@@ -36,6 +36,7 @@ function FiltersDisplay() {
                   <button
                     type="button"
                     onClick={ () => handleClick(index) }
+                    data-testid="button-exclude-filter"
                   >
                     X
                   </button>
