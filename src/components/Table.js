@@ -37,8 +37,6 @@ function Table() {
       }
     };
     if (isFiltered) {
-      // const newPlanets = filterByNumericValues
-      //   .map((filter) => filterPlanets(filter));
       const newPlanets = filterByNumericValues
         .reduce((accPlanets, currentFilter, index) => {
           let newAcc = accPlanets;
