@@ -4,28 +4,22 @@ import planetsContext from '../context/planetsContext';
 function FiltersDisplay() {
   const {
     filterByNumericValues,
-    isFiltered,
     setNumericFilters,
-    setIsFiltered,
   } = useContext(planetsContext);
 
   const handleClick = (indexToExclude) => {
-    if (filterByNumericValues.length === 1) {
-      setIsFiltered(false);
-    }
     setNumericFilters((oldState) => oldState
       .filter((_filter, index) => index !== indexToExclude));
   };
 
   const handleClickExcludeAll = () => {
     setNumericFilters([]);
-    setIsFiltered(false);
   };
 
   return (
     <section>
       {
-        isFiltered && (
+        filterByNumericValues.length !== 0 && (
           <div>
             <h3>Filtros Aplicados</h3>
             <button

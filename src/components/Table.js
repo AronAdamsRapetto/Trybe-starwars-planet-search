@@ -4,14 +4,12 @@ import TableRows from './TableRows';
 
 function Table() {
   const [planets, setPlanets] = useState([]);
-  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   const {
     data,
     loadingPlanets,
     filterByName: { name },
     filterByNumericValues,
-    isFiltered,
     isOrdered,
     order,
   } = useContext(planetsContext);
@@ -47,19 +45,21 @@ function Table() {
         return planetList;
       }
     };
-    if (isFiltered) {
+    if (filterByNumericValues.length !== 0) {
       const newPlanets = filterByNumericValues
         .reduce((accPlanets, currentFilter, index) => {
           let newAcc = accPlanets;
           if (index === 0) {
-            newAcc = [...planets];
+            newAcc = [...data];
           }
           newAcc = [...filterPlanets(currentFilter, newAcc)];
           return newAcc;
         }, []);
-      setFilteredPlanets(newPlanets);
+      setPlanets(newPlanets);
+    } else {
+      setPlanets(data);
     }
-  }, [filterByNumericValues, isFiltered, planets]);
+  }, [filterByNumericValues, data]);
 
   useEffect(() => {
     const sortPlanets = (planetList) => {
@@ -95,19 +95,10 @@ function Table() {
             </thead>
             <tbody>
               {
-                isFiltered
-                  ? (
-                    filteredPlanets
-                      .filter(({ name: namePlanet }) => namePlanet.includes(name))
-                      .map((planet) => (
-                        <TableRows key={ planet.name } planet={ planet } />
-                      ))
-                  ) : (
-                    planets.filter(({ name: namePlanet }) => namePlanet.includes(name))
-                      .map((planet) => (
-                        <TableRows key={ planet.name } planet={ planet } />
-                      ))
-                  )
+                planets.filter(({ name: namePlanet }) => namePlanet.includes(name))
+                  .map((planet) => (
+                    <TableRows key={ planet.name } planet={ planet } />
+                  ))
               }
             </tbody>
           </table>

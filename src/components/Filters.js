@@ -10,7 +10,6 @@ function Filters() {
 
   const {
     setNumericFilters,
-    setIsFiltered,
     filterByNumericValues,
     columnFilters,
     setColumnFilters,
@@ -51,7 +50,6 @@ function Filters() {
 
   const handleClick = () => {
     setNumericFilters((oldState) => [...oldState, filter]);
-    setIsFiltered(true);
   };
 
   return (
