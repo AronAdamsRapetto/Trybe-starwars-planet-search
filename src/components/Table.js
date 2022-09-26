@@ -21,8 +21,9 @@ function Table() {
       const newPlanets = [...data];
       newPlanets.sort((a, b) => {
         if (a.name < b.name) return NEGATIVE_SORT;
-        if (a.name > b.name) return POSITIVE_SORT;
-        return 0;
+        // if (a.name > b.name)
+        return POSITIVE_SORT;
+        // return 0;
       });
       setPlanets(newPlanets);
     }

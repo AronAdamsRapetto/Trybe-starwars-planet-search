@@ -21,16 +21,6 @@ describe('Testes referentes a aplicação inteira', () => {
   
   afterEach(() => jest.clearAllMocks());
 
-  it('Verifica se ao abrir a página um fetch é chamado', async () => {
-    render(<App />);
-
-    const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
-
-    expect(global.fetch).toHaveBeenCalled();
-    expect(global.fetch).toBeCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(url);
-  });
-
   it('Verifica se ao abrir a página os elementos são renderizados corretamente', async () => {
     render(<App />);
 

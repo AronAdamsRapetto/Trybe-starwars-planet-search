@@ -7,7 +7,6 @@ function ProviderPlanetsContext({ children }) {
   const [loadingPlanets, setLoading] = useState(true);
   const [nameFilter, setNameFilter] = useState('');
   const [numericFilters, setNumericFilters] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false);
   const [columnFilters, setColumnFilters] = useState([
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ]);
@@ -39,8 +38,6 @@ function ProviderPlanetsContext({ children }) {
     setNameFilter,
     filterByNumericValues: numericFilters,
     setNumericFilters,
-    isFiltered,
-    setIsFiltered,
     columnFilters,
     setColumnFilters,
     order,
